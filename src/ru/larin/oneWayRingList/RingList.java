@@ -6,12 +6,10 @@ package ru.larin.oneWayRingList;
 public class RingList {
     private Node first;
     private Node start;
-    private Node end;
 
     public RingList() {
         this.first = null;
         this.start = null;
-        end = null;
     }
 
     public boolean isEmpty() {
@@ -22,61 +20,57 @@ public class RingList {
 
     public void add(Object object) {
         Node node = new Node(object);
-        if (isEmpty()) {
-            first = node;
-            end = node;
+        if(isEmpty()){
             start = node;
-            node.setNextElementLink(end);
-        } else {
             first = node;
-            end.setNextElementLink(first);
-            end = first;
-            if (first.getNextElementLink() == null) {
-                first.setNextElementLink(start);
-            }
+        }
+        else {
+            first.setNextElementLink(node);
+            first = node;
+        }
+        if (node.getNextElementLink() == null) {
+            node.setNextElementLink(start);
         }
     }
-
-    public void print() {
-        if(!isEmpty()) {
+    public void printRightToLeft(){
+        if(!isEmpty()){
             Node node = start;
-            Node ringtemp = first.getNextElementLink();
-            do {
+            do{
                 System.out.println(node.getData().toString());
                 node = node.getNextElementLink();
-            } while (node != ringtemp);
+            }while (node!=first.getNextElementLink());
         }
     }
 
     public int size() {
         int returnSize = 0;
-        if(!isEmpty()) {
+        if (!isEmpty()) {
             Node node = start;
-            Node ringtemp = first.getNextElementLink();
             do {
                 returnSize++;
                 node = node.getNextElementLink();
-            } while (node != ringtemp);
+            } while (node != first.getNextElementLink());
         }
         return returnSize;
     }
-    public Node removeFirst(){
-        if(!isEmpty()) {
+
+    public Node removeFirst() {
+        if (!isEmpty()) {
             Node removenode = start;
             start = removenode.getNextElementLink();
             removenode.setNextElementLink(null);
-            end.setNextElementLink(start);
-            if(removenode == end){
+            first.setNextElementLink(start);
+            if (removenode == first) {
                 start = null;
                 first = null;
-                end = null;
             }
             return removenode;
         }
         return null;
     }
-    public void cleanList(){
-        while (!isEmpty()){
+
+    public void cleanList() {
+        while (!isEmpty()) {
             removeFirst();
         }
     }

@@ -20,7 +20,9 @@ public class Person {
     }
 
     public void setName() {
-        this.name = name;
+        System.out.println("Введите имя");
+        scanner = new Scanner(System.in);
+        this.name = scanner.nextLine();
     }
 
     public int getAge() {
@@ -28,6 +30,16 @@ public class Person {
     }
 
     public void setAge() {
-        this.age = age;
+        System.out.println("Введите возраст");
+        scanner = new Scanner(System.in);
+        this.age = scanner.nextInt();
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
 }
